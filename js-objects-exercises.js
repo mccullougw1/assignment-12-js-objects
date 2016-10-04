@@ -251,6 +251,16 @@ var object = {
     structural_integrity: "failing"
 }
 
+function reverseObject(object) {
+    var finalObj = {}
+
+    for (var prop in object) {
+    var newProp = object[prop]
+    finalObj[newProp] = prop
+	}
+     return finalObj
+}
+
 var reversed = reverseObject(object)
 console.assert( reversed['2b'] === 'apartment_no' )
 
@@ -268,9 +278,20 @@ var users = [
    { benzo: 'bonjourben@yahoo.com', hobby:'dealmaking' , favoriteFood: "steak" },
    { yammer: 'yeb@aol.com', hobby: 'portraiture',  favoriteFood: "croissant" }
 ]
+
+function reverseAll(users) {
+    var newArrOfObj = []
+
+    for (var i = 0; i < users.length; i++){
+        var newObj = reverseObject(users[i])
+        newArrOfObj.push(newObj)
+    }
+    return newArrOfObj
+}
+
 // should yield: [{'president@gmail.com': 'obama',basketball: 'hobby'}, ....]
 
-var flippedUsers = reverseObjects(users)
+var flippedUsers = reverseAll(users)
 
 console.assert( flippedUsers[0]['president@gmail.com'] === 'willis' )
 console.assert( flippedUsers[1]['bonjourben@yahoo.com'] === 'benzo' )
@@ -287,7 +308,10 @@ console.assert( flippedUsers[2].croissant === 'favoriteFood' )
 // exactly how you should write the method. Including the period!
 
 var politeObject = {
-    name: "Frank"
+    name: "Frank",
+    personalize: function(someFunc) {
+        return ('Hi, my name is Frank, and the result is ' + someFunc() + '.')
+    }
 }
 
 var tellEm = function() {
